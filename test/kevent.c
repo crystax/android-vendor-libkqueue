@@ -173,7 +173,8 @@ kevent_add(int kqfd, struct kevent *kev,
         intptr_t  data,
         void      *udata)
 {
-    EV_SET(kev, ident, filter, flags, fflags, data, NULL);    
+    (void)udata;
+    EV_SET(kev, ident, filter, flags, fflags, data, NULL);
     if (kevent(kqfd, kev, 1, NULL, 0, NULL) < 0) {
         printf("Unable to add the following kevent:\n%s\n",
                 kevent_to_str(kev));

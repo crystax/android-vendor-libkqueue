@@ -28,7 +28,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "private.h"
+#include "../common/private.h"
 
 /*
  * Return the offset from the current position to end of file.
@@ -257,13 +257,17 @@ evfilt_read_knote_disable(struct filter *filt, struct knote *kn)
 }
 
 const struct filter evfilt_read = {
-    EVFILT_READ,
-    NULL,
-    NULL,
-    evfilt_read_copyout,
-    evfilt_read_knote_create,
-    evfilt_read_knote_modify,
-    evfilt_read_knote_delete,
-    evfilt_read_knote_enable,
-    evfilt_read_knote_disable,         
+    .kf_id      = EVFILT_READ,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = evfilt_read_copyout,
+    .kn_create  = evfilt_read_knote_create,
+    .kn_modify  = evfilt_read_knote_modify,
+    .kn_delete  = evfilt_read_knote_delete,
+    .kn_enable  = evfilt_read_knote_enable,
+    .kn_disable = evfilt_read_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };

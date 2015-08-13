@@ -65,6 +65,8 @@ test_peer_close_detection(void *unused)
     char buf[1];
     struct pollfd pfd;
 
+    (void)unused;
+
     if (socketpair(AF_UNIX, SOCK_STREAM, 0, sockfd) < 0)
         die("socketpair");
 
@@ -90,6 +92,8 @@ test_kqueue(void *unused)
 {
     int kqfd;
 
+    (void)unused;
+
     if ((kqfd = kqueue()) < 0)
         die("kqueue()");
     test_no_kevents(kqfd);
@@ -101,6 +105,8 @@ void
 test_kevent(void *unused)
 {
     struct kevent kev;
+
+    (void)unused;
 
     memset(&kev, 0, sizeof(kev));
 
@@ -114,6 +120,8 @@ test_ev_receipt(void *unused)
 {
     int kq;
     struct kevent kev;
+
+    (void)unused;
 
     if ((kq = kqueue()) < 0)
         die("kqueue()");

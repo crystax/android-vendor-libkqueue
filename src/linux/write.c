@@ -28,7 +28,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "private.h"
+#include "../common/private.h"
 
 int
 evfilt_socket_copyout(struct kevent *dst, struct knote *src, void *ptr)
@@ -121,13 +121,17 @@ evfilt_socket_knote_disable(struct filter *filt, struct knote *kn)
 }
 
 const struct filter evfilt_write = {
-    EVFILT_WRITE,
-    NULL,
-    NULL,
-    evfilt_socket_copyout,
-    evfilt_socket_knote_create,
-    evfilt_socket_knote_modify,
-    evfilt_socket_knote_delete,
-    evfilt_socket_knote_enable,
-    evfilt_socket_knote_disable,         
+    .kf_id      = EVFILT_WRITE,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = evfilt_socket_copyout,
+    .kn_create  = evfilt_socket_knote_create,
+    .kn_modify  = evfilt_socket_knote_modify,
+    .kn_delete  = evfilt_socket_knote_delete,
+    .kn_enable  = evfilt_socket_knote_enable,
+    .kn_disable = evfilt_socket_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };

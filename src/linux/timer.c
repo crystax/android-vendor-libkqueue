@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "private.h"
+#include "../common/private.h"
 
 #ifndef HAVE_SYS_TIMERFD_H
 
@@ -207,13 +207,17 @@ evfilt_timer_knote_disable(struct filter *filt, struct knote *kn)
 }
 
 const struct filter evfilt_timer = {
-    EVFILT_TIMER,
-    NULL,
-    NULL,
-    evfilt_timer_copyout,
-    evfilt_timer_knote_create,
-    evfilt_timer_knote_modify,
-    evfilt_timer_knote_delete,
-    evfilt_timer_knote_enable,
-    evfilt_timer_knote_disable,     
+    .kf_id      = EVFILT_TIMER,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = evfilt_timer_copyout,
+    .kn_create  = evfilt_timer_knote_create,
+    .kn_modify  = evfilt_timer_knote_modify,
+    .kn_delete  = evfilt_timer_knote_delete,
+    .kn_enable  = evfilt_timer_knote_enable,
+    .kn_disable = evfilt_timer_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };

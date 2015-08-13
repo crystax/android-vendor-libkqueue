@@ -27,7 +27,7 @@
 #include <unistd.h>
 
 #include "sys/event.h"
-#include "private.h"
+#include "../common/private.h"
 
 /* NOTE: copy+pasted from linux_eventfd_raise() */
 static int
@@ -218,13 +218,17 @@ linux_evfilt_user_knote_disable(struct filter *filt, struct knote *kn)
 }
 
 const struct filter evfilt_user = {
-    EVFILT_USER,
-    NULL,
-    NULL,
-    linux_evfilt_user_copyout,
-    linux_evfilt_user_knote_create,
-    linux_evfilt_user_knote_modify,
-    linux_evfilt_user_knote_delete,
-    linux_evfilt_user_knote_enable,
-    linux_evfilt_user_knote_disable,   
+    .kf_id      = EVFILT_USER,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = linux_evfilt_user_copyout,
+    .kn_create  = linux_evfilt_user_knote_create,
+    .kn_modify  = linux_evfilt_user_knote_modify,
+    .kn_delete  = linux_evfilt_user_knote_delete,
+    .kn_enable  = linux_evfilt_user_knote_enable,
+    .kn_disable = linux_evfilt_user_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };

@@ -126,7 +126,7 @@ test_kevent_vnode_note_attrib(struct test_context *ctx)
     nfds = kevent(ctx->kqfd, NULL, 0, &kev, 1, NULL);
     if (nfds < 1)
         die("kevent");
-    if (kev.ident != ctx->vnode_fd ||
+    if (kev.ident != (uintptr_t)ctx->vnode_fd ||
             kev.filter != EVFILT_VNODE || 
             kev.fflags != NOTE_ATTRIB)
         err(1, "%s - incorrect event (sig=%u; filt=%d; flags=%d)", 
@@ -146,7 +146,7 @@ test_kevent_vnode_note_rename(struct test_context *ctx)
     nfds = kevent(ctx->kqfd, NULL, 0, &kev, 1, NULL);
     if (nfds < 1)
         die("kevent");
-    if (kev.ident != ctx->vnode_fd ||
+    if (kev.ident != (uintptr_t)ctx->vnode_fd ||
             kev.filter != EVFILT_VNODE || 
             kev.fflags != NOTE_RENAME)
         err(1, "%s - incorrect event (sig=%u; filt=%d; flags=%d)", 
@@ -189,7 +189,7 @@ test_kevent_vnode_disable_and_enable(struct test_context *ctx)
     nfds = kevent(ctx->kqfd, NULL, 0, &kev, 1, NULL);
     if (nfds < 1)
         die("kevent");
-    if (kev.ident != ctx->vnode_fd ||
+    if (kev.ident != (uintptr_t)ctx->vnode_fd ||
             kev.filter != EVFILT_VNODE || 
             kev.fflags != NOTE_ATTRIB)
         err(1, "%s - incorrect event (sig=%u; filt=%d; flags=%d)", 
@@ -212,7 +212,7 @@ test_kevent_vnode_dispatch(struct test_context *ctx)
     nfds = kevent(ctx->kqfd, NULL, 0, &kev, 1, NULL);
     if (nfds < 1)
         die("kevent");
-    if (kev.ident != ctx->vnode_fd ||
+    if (kev.ident != (uintptr_t)ctx->vnode_fd ||
             kev.filter != EVFILT_VNODE || 
             kev.fflags != NOTE_ATTRIB)
         err(1, "%s - incorrect event (sig=%u; filt=%d; flags=%d)", 

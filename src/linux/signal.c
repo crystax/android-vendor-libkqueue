@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "private.h"
+#include "../common/private.h"
 
 #if HAVE_SYS_SIGNALFD_H
 # include <sys/signalfd.h>
@@ -206,13 +206,17 @@ evfilt_signal_knote_disable(struct filter *filt, struct knote *kn)
 
 
 const struct filter evfilt_signal = {
-    EVFILT_SIGNAL,
-    NULL,
-    NULL,
-    evfilt_signal_copyout,
-    evfilt_signal_knote_create,
-    evfilt_signal_knote_modify,
-    evfilt_signal_knote_delete,
-    evfilt_signal_knote_enable,
-    evfilt_signal_knote_disable,         
+    .kf_id      = EVFILT_SIGNAL,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = evfilt_signal_copyout,
+    .kn_create  = evfilt_signal_knote_create,
+    .kn_modify  = evfilt_signal_knote_modify,
+    .kn_delete  = evfilt_signal_knote_delete,
+    .kn_enable  = evfilt_signal_knote_enable,
+    .kn_disable = evfilt_signal_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };

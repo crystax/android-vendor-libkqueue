@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "private.h"
+#include "../common/private.h"
 
 #ifndef NDEBUG
 static char *
@@ -280,13 +280,17 @@ evfilt_vnode_knote_disable(struct filter *filt, struct knote *kn)
 }
 
 const struct filter evfilt_vnode = {
-    EVFILT_VNODE,
-    NULL,
-    NULL,
-    evfilt_vnode_copyout,
-    evfilt_vnode_knote_create,
-    evfilt_vnode_knote_modify,
-    evfilt_vnode_knote_delete,
-    evfilt_vnode_knote_enable,
-    evfilt_vnode_knote_disable,        
+    .kf_id      = EVFILT_VNODE,
+    .kf_init    = NULL,
+    .kf_destroy = NULL,
+    .kf_copyout = evfilt_vnode_copyout,
+    .kn_create  = evfilt_vnode_knote_create,
+    .kn_modify  = evfilt_vnode_knote_modify,
+    .kn_delete  = evfilt_vnode_knote_delete,
+    .kn_enable  = evfilt_vnode_knote_enable,
+    .kn_disable = evfilt_vnode_knote_disable,
+    .kf_efd     = EVENTFD_EMPTY,
+    .kf_pfd     = -1,
+    .kf_wfd     = -1,
+    .kf_data    = NULL,
 };
