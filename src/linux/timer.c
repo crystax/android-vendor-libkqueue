@@ -69,10 +69,10 @@ itimerspec_dump(struct itimerspec *ts)
 
     snprintf(buf, sizeof(buf),
             "itimer: [ interval=%lu s %lu ns, next expire=%lu s %lu ns ]",
-            ts->it_interval.tv_sec,
-            ts->it_interval.tv_nsec,
-            ts->it_value.tv_sec,
-            ts->it_value.tv_nsec
+            (unsigned long)ts->it_interval.tv_sec,
+            (unsigned long)ts->it_interval.tv_nsec,
+            (unsigned long)ts->it_value.tv_sec,
+            (unsigned long)ts->it_value.tv_nsec
            );
 
     return (buf);

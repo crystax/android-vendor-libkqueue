@@ -97,7 +97,7 @@ linux_kevent_wait_hires(
     struct pollfd fds;
 
     dbg_printf("waiting for events (timeout=%ld sec %ld nsec)",
-            timeout->tv_sec, timeout->tv_nsec);
+            (long)timeout->tv_sec, (long)timeout->tv_nsec);
     fds.fd = kqueue_epfd(kq);
     fds.events = POLLIN;
 
@@ -107,7 +107,7 @@ linux_kevent_wait_hires(
     fd_set fds;
 
     dbg_printf("waiting for events (timeout=%ld sec %ld nsec)",
-            timeout->tv_sec, timeout->tv_nsec);
+            (long)timeout->tv_sec, (long)timeout->tv_nsec);
 
     epfd = kqueue_epfd(kq);
     FD_ZERO(&fds);
