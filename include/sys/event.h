@@ -120,7 +120,6 @@ struct kevent {
  * data/hint flags for EVFILT_{READ|WRITE}
  */
 #define NOTE_LOWAT	0x0001			/* low water mark */
-#undef  NOTE_LOWAT                  /* Not supported on Linux */
 
 /*
  * data/hint flags for EVFILT_VNODE
@@ -132,7 +131,6 @@ struct kevent {
 #define	NOTE_LINK	0x0010			/* link count changed */
 #define	NOTE_RENAME	0x0020			/* vnode was renamed */
 #define	NOTE_REVOKE	0x0040			/* vnode access was revoked */
-#undef  NOTE_REVOKE                 /* Not supported on Linux */
 
 /*
  * data/hint flags for EVFILT_PROC
