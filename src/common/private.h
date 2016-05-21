@@ -51,24 +51,6 @@ struct evfilt_data;
 
 #include "debug.h"
 
-#if __CRYSTAX__
-
-/* Temporary workaround: use mutex instead of RW-locks.
- * This is needed because on Android libc don't provide
- * POSIX rwlock API for API levels < 9.
- * TODO: remove this workaround when libcrystax will
- * include POSIX threads API implementation.
- * See https://tracker.crystax.net/issues/1028 for details.
- */
-
-#define pthread_rwlock_t pthread_mutex_t
-#define pthread_rwlock_init   pthread_mutex_init
-#define pthread_rwlock_wrlock pthread_mutex_lock
-#define pthread_rwlock_rdlock pthread_mutex_lock
-#define pthread_rwlock_unlock pthread_mutex_unlock
-
-#endif /* __CRYSTAX__ */
-
 /* Workaround for Android */
 #ifndef EPOLLONESHOT
 # define EPOLLONESHOT (1 << 30)
